@@ -66,12 +66,13 @@ public class PlayerController : MonoBehaviour, IChildCollisionDetecting
             float adjustedSpeed = Speed;
 
             float time = Time.deltaTime;
+            float unscaledTime = Time.unscaledDeltaTime;
 
             HandleSettings();
 
             adjustedSpeed = HandleShield(time, adjustedSpeed);
 
-            HandleMouseAim(time);
+            HandleMouseAim(unscaledTime);
 
             HandleMovement(time, adjustedSpeed);
         }

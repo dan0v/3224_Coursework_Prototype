@@ -13,8 +13,8 @@ public class Pickup_SloMo : MonoBehaviour
 
     private bool active = true;
     private bool pickedUp = false;
-    private float pickupTimer = 0f;
-    private float constantTimer = 0f;
+    private float pickupTimer = 0;
+    private float constantTimer = 0;
     private Vector3 startingPosition;
     private GameObject hourglass;
     private GameObject timerBar;
@@ -58,7 +58,6 @@ public class Pickup_SloMo : MonoBehaviour
 
                 if (pickupTimer > SloMoSeconds)
                 {
-                    Time.timeScale += timeScaleSubtracted;
                     DestroyGracefully();
                 }
             }
@@ -96,7 +95,7 @@ public class Pickup_SloMo : MonoBehaviour
             c.enabled = false;
         }
 
-        StartCoroutine(DieGracefully(1f, 0, byDirector));
+        StartCoroutine(DieGracefully(1.3f, 0, byDirector));
     }
 
     private IEnumerator DieGracefully(float duration, float targetVolume, bool byDirector = false)
@@ -110,9 +109,14 @@ public class Pickup_SloMo : MonoBehaviour
             while (currentTime < duration)
             {
                 currentTime += Time.unscaledDeltaTime;
-                deActivateAudioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+                Time.timeScale += timeScaleSubtracted * (Time.unscaledDeltaTime / duration);
+                //deActivateAudioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
                 yield return null;
             }
+        }
+        else
+        {
+            Time.timeScale += timeScaleSubtracted;
         }
         GameObject.Destroy(this.gameObject);
         yield break;

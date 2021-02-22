@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SloMoSeconds: 3
-  SloMoRatio: 0.7
+  SloMoRatio: 0.6
   RotationSpeed: {x: 0, y: 50, z: 0}
   BounceStrength: 1
   ScaleInsteadOfBar: 1
